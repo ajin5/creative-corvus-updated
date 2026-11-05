@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Farro:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Farro', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #070b12;
+  --color-navy-900: #0b1220;
+  --color-navy-800: #101a2e;
+  --color-navy-700: #14263f;
+  --color-navy-600: #1c3454;
+  --color-navy-500: #274568;
+
+  --color-ink-900: #0a0a0a;
+
+  --color-gold-500: #f2a93b;
+  --color-gold-600: #e8892b;
+  --color-gold-400: #f6c374;
+
+  --color-mist-100: #f5f5f2;
+  --color-mist-300: #cbd1db;
+  --color-mist-500: #8b93a3;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-navy-900);
+  color: var(--color-mist-100);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+::selection {
+  background-color: var(--color-gold-500);
+  color: var(--color-navy-950);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.noise-bg {
+  background-image: radial-gradient(circle at 20% 20%, rgba(242,169,59,0.08), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(39,69,104,0.35), transparent 45%);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.btn-gold {
+  background-image: linear-gradient(110deg, #e8892b 0%, #f2a93b 25%, #f6c374 50%, #f2a93b 75%, #e8892b 100%);
+  background-size: 220% 100%;
+  background-position: 0% 0%;
+  animation: btn-gold-shift 5s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-gold:hover {
+  animation-play-state: paused;
+  background-position: 100% 0%;
+}
+@keyframes btn-gold-shift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 0%; }
+  100% { background-position: 0% 0%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-gold { animation: none; }
+}
+
+@keyframes filmstrip {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.feature-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.10), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.feature-sheen:hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .feature-sheen::after { display: none; }
+}
+
+/* Default cursor stays visible until CustomCursor mounts and takes over
+   on fine pointer devices; this class is only added by that component. */
+@media (pointer: coarse) {
+  body { cursor: auto !important; }
+}
